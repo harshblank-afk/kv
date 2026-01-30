@@ -1,0 +1,64 @@
+[
+  {
+    "id": "e6f77a87-6d8d-426d-a17f-fa336b8a9e15",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": null,
+    "type": "waitlist",
+    "message": "User joined via waitlist popup.",
+    "createdAt": "2026-01-30T12:56:41.517Z",
+    "hasAttachment": false
+  },
+  {
+    "id": "85821ea1-e690-4176-b9c8-6c4fc1c1b0d4",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": null,
+    "type": "newsletter",
+    "message": "User joined via newsletter popup.",
+    "createdAt": "2026-01-30T13:20:54.206Z",
+    "hasAttachment": false
+  },
+  {
+    "id": "c23ed0ea-1e6d-4feb-811e-bfcb5c8166d0",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": null,
+    "type": "waitlist",
+    "message": "User joined via waitlist popup.",
+    "createdAt": "2026-01-30T13:25:42.443Z",
+    "hasAttachment": false
+  },
+  {
+    "id": "01ce4f3a-b3d6-4e87-a866-6811f8d395a3",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": null,
+    "type": "newsletter",
+    "message": "User joined via newsletter popup.",
+    "createdAt": "2026-01-30T13:26:10.166Z",
+    "hasAttachment": false
+  },
+  {
+    "id": "4a7533b9-d5a8-4058-901f-b8fb9b016566",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": null,
+    "type": "waitlist",
+    "message": "User joined via waitlist popup.",
+    "createdAt": "2026-01-30T13:29:31.060Z",
+    "hasAttachment": false,
+    "status": "Waitlist Member"
+  },
+  {
+    "id": "d2d76f5d-fc81-456c-b66f-fbafad55945c",
+    "name": "HARSH KUMAR SINGH",
+    "email": "harshuopjs@gmail.com",
+    "phone": "09971959892",
+    "type": "support",
+    "message": "gbatebate btaeb aet",
+    "createdAt": "2026-01-30T13:37:40.350Z",
+    "hasAttachment": false,
+    "status": "New Ticket"
+  }
+]
