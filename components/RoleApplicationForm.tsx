@@ -51,7 +51,7 @@ export default function RoleApplicationForm({ role }: RoleApplicationFormProps) 
         }
 
         try {
-            const response = await fetch('/api/applications', {
+            const response = await fetch('/api/career', {
                 method: 'POST',
                 body: formData,
             });
@@ -68,8 +68,9 @@ export default function RoleApplicationForm({ role }: RoleApplicationFormProps) 
             });
             event.currentTarget.reset();
             setResumeName(null);
-        } catch (err: any) {
-            setError(err.message || 'Failed to submit application');
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to apply';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }

@@ -40,7 +40,7 @@ export default function ContactForm() {
         }
 
         try {
-            const response = await fetch('/api/contact', {
+            const response = await fetch('/api/support', {
                 method: 'POST',
                 body: formData,
             });
@@ -56,8 +56,10 @@ export default function ContactForm() {
                 message: data.message
             });
             event.currentTarget.reset();
-        } catch (err: any) {
-            setError(err.message || 'Failed to submit form');
+            event.currentTarget.reset();
+        } catch (err: unknown) {
+            const errorMessage = err instanceof Error ? err.message : 'Failed to submit form';
+            setError(errorMessage);
         } finally {
             setIsLoading(false);
         }

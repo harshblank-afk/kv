@@ -45,10 +45,12 @@ export function PopupProvider({ children }: { children: ReactNode }) {
         setError(null);
 
         const formData = new FormData(e.currentTarget);
-        formData.append('type', popupType || 'waitlist');
+        const type = popupType || 'waitlist';
+        // Endpoint based on type
+        const endpoint = type === 'newsletter' ? '/api/newsletter' : '/api/waitlist';
 
         try {
-            const res = await fetch('/api/contact', {
+            const res = await fetch(endpoint, {
                 method: 'POST',
                 body: formData,
             });
@@ -56,14 +58,14 @@ export function PopupProvider({ children }: { children: ReactNode }) {
             const data = await res.json();
 
             if (res.ok) {
-                setSuccessMessage('Thank you for joining Kridavista. We’ll keep you updated.');
+                setSuccessMessage(data.message || 'Success!');
                 setTimeout(() => {
                     closePopup();
                 }, 3000);
             } else {
                 setError(data.error || 'Something went wrong.');
             }
-        } catch (err) {
+        } catch {
             setError('Failed to submit. Please try again.');
         } finally {
             setIsLoading(false);

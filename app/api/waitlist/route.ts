@@ -1,28 +1,30 @@
 import { NextResponse } from 'next/server';
+import { sendWaitlistWelcome } from '@/lib/mailer';
+import { logToDatabase } from '@/lib/db';
 
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        const { name, email } = body;
+        const formData = await request.formData();
+        const email = formData.get('email') as string;
+        const name = formData.get('name') as string;
 
-        if (!email) {
-            return NextResponse.json(
-                { error: 'Email is required' },
-                { status: 400 }
-            );
+        if (!email || !name) {
+            return NextResponse.json({ error: 'Email and Name are required' }, { status: 400 });
         }
 
-        // Mock storage/processing
-        console.log('Waitlist submission:', { name, email, date: new Date().toISOString() });
+        // Log to "Database"
+        await logToDatabase('waitlist_join', { name, email });
 
-        return NextResponse.json(
-            { message: 'Successfully joined the waitlist!' },
-            { status: 200 }
-        );
-    } catch (error) {
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+        // Send Welcome Email
+        const emailResult = await sendWaitlistWelcome(email, name);
+
+        if (!emailResult.success) {
+            console.error('Email sending failed:', emailResult.error);
+        }
+
+        return NextResponse.json({ success: true, message: 'Joined waitlist successfully' });
+    } catch (error: unknown) {
+        console.error('Waitlist API Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

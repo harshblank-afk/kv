@@ -1,28 +1,31 @@
 import { NextResponse } from 'next/server';
+import { sendNewsletterWelcome } from '@/lib/mailer';
+import { logToDatabase } from '@/lib/db';
 
 export async function POST(request: Request) {
     try {
-        const body = await request.json();
-        const { email } = body;
+        const formData = await request.formData();
+        const email = formData.get('email') as string;
+        const name = formData.get('name') as string;
 
-        if (!email) {
-            return NextResponse.json(
-                { error: 'Email is required' },
-                { status: 400 }
-            );
+        if (!email || !name) {
+            return NextResponse.json({ error: 'Email and Name are required' }, { status: 400 });
         }
 
-        // Mock storage/processing
-        console.log('Newsletter subscription:', { email, date: new Date().toISOString() });
+        // Log to "Database"
+        await logToDatabase('newsletter_subscription', { name, email });
 
-        return NextResponse.json(
-            { message: 'Successfully subscribed to updates!' },
-            { status: 200 }
-        );
-    } catch (error) {
-        return NextResponse.json(
-            { error: 'Internal server error' },
-            { status: 500 }
-        );
+        // Send Welcome Email
+        const emailResult = await sendNewsletterWelcome(email, name);
+
+        if (!emailResult.success) {
+            console.error('Email sending failed:', emailResult.error);
+            // We still return success to the user so they don't retry unnecessarily, but we log the error.
+        }
+
+        return NextResponse.json({ success: true, message: 'Subscribed successfully' });
+    } catch (error: unknown) {
+        console.error('Newsletter API Error:', error);
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }

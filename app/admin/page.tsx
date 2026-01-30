@@ -36,7 +36,7 @@ export default function AdminPage() {
             } else {
                 setError('Invalid Password or Server Error');
             }
-        } catch (err) {
+        } catch {
             setError('Failed to fetch data');
         } finally {
             setIsLoading(false);

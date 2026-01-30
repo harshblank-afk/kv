@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     try {
         const applications = JSON.parse(fileContent);
         // Sort by date desc
-        applications.sort((a: any, b: any) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
+        applications.sort((a: { submittedAt: string }, b: { submittedAt: string }) => new Date(b.submittedAt).getTime() - new Date(a.submittedAt).getTime());
         return NextResponse.json({ applications });
     } catch (e) {
         return NextResponse.json({ applications: [] });
